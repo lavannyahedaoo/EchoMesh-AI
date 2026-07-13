@@ -1,0 +1,47 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Environments & Credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Python Virtual Environments & Packages
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Node/React Dependencies & Builds
+node_modules/
+/frontend/.next/
+/frontend/out/
+frontend/build/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Database & Volume Mounts
+.crdb-data/
+postgres-data/
+
+# IDEs & Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+.gemini/
