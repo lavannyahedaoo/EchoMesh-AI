@@ -5,6 +5,7 @@ import Sidebar from "../components/layout/Sidebar";
 import Header from "../components/layout/Header";
 import MemoryGrid from "../components/explorer/MemoryGrid";
 import GraphCanvas from "../components/graph/GraphCanvas";
+import ChatPanel from "../components/chat/ChatPanel";
 import { useTeams, useProjects } from "../hooks/useApi";
 import { useWorkspace } from "../context/WorkspaceContext";
 
@@ -62,11 +63,7 @@ export default function DashboardPage() {
                 <h1 className="text-3xl font-bold tracking-tight">RAG Assistant</h1>
                 <p className="text-slate-400 text-sm mt-1">Ask questions about architectural logic and choices.</p>
               </div>
-              <div className="flex-1 p-8 border border-dashed border-slate-800 rounded-2xl flex flex-col items-center justify-center text-center text-slate-500 min-h-[300px]">
-                <span className="text-3xl mb-2">🧠</span>
-                <p className="text-sm font-medium text-slate-400">LLM Chatbot workspace panel placeholder</p>
-                <p className="text-xs text-slate-600 mt-1">AI Chatbot queries will be wired in Step 5.</p>
-              </div>
+              <ChatPanel />
             </div>
           )}
         </main>
