@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  # Distributed SQL Database layer
+  db:
+    image: cockroachdb/cockroach:v23.2.3
+    container_name: echomesh_db
+    command: start-single-node --insecure --http-addr=0.0.0.0:8080
+    ports:
+      - "26257:26257"  # SQL Client port
+      - "8080:8080"    # Admin UI console port
+    volumes:
+      - crdb_data:/cockroach/cockroach-data
+    healthcheck:
+      test: ["CMD", "cockroach", "node", "status", "--insecure"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - echomesh_network
+
+  # FastAPI Backend Application API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: echomesh_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.example
+    environment:
+      - COCKROACH_HOST=db
+      - DATABASE_URL=postgresql://root@db:26257/echomesh_dev?sslmode=disable
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    networks:
+      - echomesh_network
+
+  # Next.js Frontend Client Panel
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: echomesh_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.example
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - echomesh_network
+
+networks:
+  echomesh_network:
+    driver: bridge
+
+volumes:
+  crdb_data:
+    driver: local

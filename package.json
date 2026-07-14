@@ -1,0 +1,28 @@
+{
+  "name": "echomesh-ai",
+  "version": "1.0.0",
+  "description": "EchoMesh AI — The AI Memory Operating System for teams",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "start:frontend": "npm run start --workspace=frontend",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": [
+    "ai",
+    "memory",
+    "graph",
+    "rag",
+    "cockroachdb",
+    "fastapi",
+    "nextjs",
+    "bedrock"
+  ],
+  "author": "EchoMesh AI Team",
+  "license": "MIT"
+}
