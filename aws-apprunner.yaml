@@ -1,0 +1,29 @@
+# ==============================================================================
+# AWS App Runner Deployment Configuration (FastAPI Backend)
+# ==============================================================================
+version: 1.0
+runtime: python3
+
+build:
+  commands:
+    pre-build:
+      # Update pip and install production dependencies
+      - pip install --upgrade pip
+      - pip install -r backend/requirements.txt
+    build:
+      - echo "Backend build phase complete. Preparing service execution..."
+
+run:
+  # CD into backend folder and run production server using uvicorn workers
+  command: cd backend && uvicorn app.main:app --host 0.0.0.0 --port 8000
+  network:
+    port: 8000
+  environment:
+    - name: APP_ENV
+      value: production
+    - name: DEBUG
+      value: "false"
+    - name: COCKROACH_PORT
+      value: "26257"
+    - name: AWS_REGION
+      value: us-east-1

@@ -1,7 +1,7 @@
 {
   "include": [
     "backend",
-    ".gemini/antigravity-ide/brain/d7dd19c1-490a-4d14-a792-b6b174f08880/scratch"
+    ".gemini/antigravity-ide/brain/c2b251bd-266e-4cc7-b9af-2547215be54c/scratch"
   ],
   "exclude": [
     "**/node_modules",
@@ -14,10 +14,17 @@
   "venv": "venv",
   "executionEnvironments": [
     {
-      "root": ".gemini/antigravity-ide/brain/d7dd19c1-490a-4d14-a792-b6b174f08880/scratch",
+      "root": ".gemini/antigravity-ide/brain/c2b251bd-266e-4cc7-b9af-2547215be54c/scratch",
       "extraPaths": [
         "../../../../../backend",
         "../../../../../backend/app"
+      ]
+    },
+    {
+      "root": "backend",
+      "extraPaths": [
+        "backend",
+        "backend/app"
       ]
     },
     {

@@ -1,0 +1,29 @@
+# ==============================================================================
+# EchoMesh AI Frontend Production Dockerfile
+# ==============================================================================
+
+# Build Stage
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Run Stage
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+COPY package.json package-lock.json ./
+RUN npm install --only=production
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/src ./src
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
